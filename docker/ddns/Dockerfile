@@ -10,4 +10,4 @@ RUN GO111MODULE=on go install -v ./...
 
 ENV GIN_MODE release
 
-CMD /go/bin/ddns --domain=${DDNS_DOMAIN} --soa_fqdn=${DDNS_SOA_DOMAIN} --redis=${DDNS_REDIS_HOST}
+CMD /go/bin/ddns --domain=${DDNS_DOMAIN} --soa_fqdn=${DDNS_SOA_DOMAIN} --redis=${DDNS_REDIS_HOST} --user=${DDNS_USER} --password=${DDNS_PASSWORD}

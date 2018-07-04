@@ -31,9 +31,15 @@ func (f *Frontend) Run() error {
 		r.Use(gin.Logger())
 	}
 
+	// Group using gin.BasicAuth() middleware
+	// gin.Accounts is a shortcut for map[string]string
+	authorized := r.Group("/", gin.BasicAuth(gin.Accounts{
+		f.config.User:    f.config.Password,
+	}))
+
 	r.SetHTMLTemplate(buildTemplate())
 
-	r.GET("/", func(g *gin.Context) {
+	authorized.GET("/", func(g *gin.Context) {
 		g.HTML(200, "index.html", gin.H{"domain": f.config.Domain})
 	})
 
@@ -50,7 +56,7 @@ func (f *Frontend) Run() error {
 		})
 	})
 
-	r.GET("/new/:hostname", func(c *gin.Context) {
+	authorized.GET("/new/:hostname", func(c *gin.Context) {
 		hostname, valid := isValidHostname(c.Params.ByName("hostname"))
 
 		if !valid {

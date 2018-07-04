@@ -14,6 +14,8 @@ type Config struct {
 	ListenFrontend     string
 	ListenBackend      string
 	RedisHost          string
+	User          		 string
+	Password           string
 }
 
 func (c *Config) Initialize() {
@@ -31,6 +33,12 @@ func (c *Config) Initialize() {
 
 	flag.StringVar(&c.RedisHost, "redis", ":6379",
 		"The Redis socket that should be used")
+
+	flag.StringVar(&c.User, "user", "admin",
+		"BasicAuth user for the web interface")
+
+	flag.StringVar(&c.Password, "password", "123456",
+		"BasicAuth password for the BasicAuth user")
 
 	flag.IntVar(&c.HostExpirationDays, "expiration-days", 10,
 		"The number of days after a host is released when it is not updated")

@@ -5,6 +5,10 @@ services:
     environment:
       DDNS_DOMAIN: d.example.net                      # <<< ADJUST DOMAIN
       DDNS_SOA_DOMAIN: ddns.example.net               # <<< ADJUST DOMAIN
+      DDNS_USER: "admin"                              # <<< CHANGE!
+      DDNS_PASSWORD: "123456"                         # <<< CHANGE!
+    ports:
+      - "8080:8080"                                   # <<< ADJUST LOCAL PORT
 
   powerdns:
     ports:
