@@ -113,9 +113,7 @@ func (f *Frontend) Run() error {
 		}
 
 		addr, validAddr := isValidIP(c.Query("ip"))
-		fmt.Println(addr)
 		if validAddr {
-			fmt.Println("Adress set from parameter")
 			ip = addr
 		}
 
