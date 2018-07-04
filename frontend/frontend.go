@@ -112,6 +112,13 @@ func (f *Frontend) Run() error {
 			return
 		}
 
+		addr, validAddr := isValidIP(c.Query("ip"))
+		fmt.Println(addr)
+		if validAddr {
+			fmt.Println("Adress set from parameter")
+			ip = addr
+		}
+
 		host.Ip = ip
 		if err = f.hosts.SetHost(host); err != nil {
 			c.JSON(400, gin.H{
@@ -156,4 +163,10 @@ func isValidHostname(host string) (string, bool) {
 	valid, _ := regexp.Match("^[a-z0-9]{1,32}$", []byte(host))
 
 	return host, valid
+}
+
+func isValidIP(addr string) (string, bool) {
+	valid, _ := regexp.Match("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", []byte(addr))
+
+	return addr, valid
 }
